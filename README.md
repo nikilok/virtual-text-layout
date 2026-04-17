@@ -2,6 +2,8 @@
 
 Pre-compute virtual list item heights from text content using canvas — zero DOM measurement on the scroll path.
 
+**[Live demo →](https://www.sponsorsearch.co.uk/?search=han)**
+
 Built on [@chenglou/pretext](https://github.com/chenglou/pretext). Pairs with [@tanstack/react-virtual](https://tanstack.com/virtual) or any virtualizer that accepts an `estimateSize` function.
 
 Peer dependencies: `react >= 18`, `@chenglou/pretext`
@@ -13,13 +15,13 @@ pretext gives you `prepare()` and `layout()` — low-level primitives for canvas
 ## Usage
 
 ```tsx
-import { useVirtualTextLayout } from 'virtual-text-layout';
-import { useWindowVirtualizer } from '@tanstack/react-virtual';
+import { useVirtualTextLayout } from "virtual-text-layout";
+import { useWindowVirtualizer } from "@tanstack/react-virtual";
 
 const { estimateSize, ready } = useVirtualTextLayout(items, {
   fields: [
-    { getText: (item) => item.title, font: '600 16px Inter', lineHeight: 24 },
-    { getText: (item) => item.subtitle, font: '14px Inter', lineHeight: 20 },
+    { getText: (item) => item.title, font: "600 16px Inter", lineHeight: 24 },
+    { getText: (item) => item.subtitle, font: "14px Inter", lineHeight: 20 },
   ],
   fixedHeight: 48, // total px of non-text elements (padding, icons, etc.)
   containerRef: listRef,
@@ -46,12 +48,12 @@ const virtualizer = useWindowVirtualizer({
 
 Measured scrolling through 250 rows (5 pages):
 
-| Metric | measureElement | virtual-text-layout | Change |
-|---|---|---|---|
-| Recalculate style | 300ms | 171ms | -43% |
-| Layout | 194ms | 125ms | -35% |
-| Function call total | 1,383ms | 968ms | -30% |
-| Paint | 33ms | 25ms | -26% |
+| Metric              | measureElement | virtual-text-layout | Change |
+| ------------------- | -------------- | ------------------- | ------ |
+| Recalculate style   | 300ms          | 171ms               | -43%   |
+| Layout              | 194ms          | 125ms               | -35%   |
+| Function call total | 1,383ms        | 968ms               | -30%   |
+| Paint               | 33ms           | 25ms                | -26%   |
 
 ## License
 
