@@ -11,6 +11,8 @@ export function useVirtualTextLayout<T>(
 ): UseVirtualTextLayoutResult {
 	const { fields, fixedHeight, containerRef } = options;
 	const metricsRef = useRef<ReturnType<typeof prepare>[][]>([]);
+	const observedElRef = useRef<Element | null>(null);
+	const observerRef = useRef<ResizeObserver | null>(null);
 	const [fontsReady, setFontsReady] = useState(false);
 	const [contentWidth, setContentWidth] = useState(0);
 
@@ -22,21 +24,35 @@ export function useVirtualTextLayout<T>(
 		});
 	}, []);
 
-	// Measure container content-box width before paint, then track via ResizeObserver.
+	// Track whichever element containerRef points at. Runs every commit with an
+	// identity check, so consumers that swap the ref between DOM nodes (e.g.
+	// loading vs loaded branches) get the ResizeObserver re-attached without
+	// having to keep a single stable element mounted.
 	useLayoutEffect(() => {
 		const el = containerRef.current;
-		if (!el) return;
+		if (el === observedElRef.current) return;
+
+		observerRef.current?.disconnect();
+		observerRef.current = null;
+		observedElRef.current = el;
+
+		if (!el) return; // keep last known contentWidth across brief unmounts
+
 		const style = getComputedStyle(el);
 		const paddingX =
 			parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
 		setContentWidth(Math.floor(el.clientWidth - paddingX));
+
 		const ro = new ResizeObserver((entries) => {
 			const width = entries[0]?.contentBoxSize?.[0]?.inlineSize;
 			if (width) setContentWidth(Math.floor(width));
 		});
 		ro.observe(el);
-		return () => ro.disconnect();
-	}, [containerRef]);
+		observerRef.current = ro;
+	});
+
+	// Final cleanup when the hook itself unmounts.
+	useEffect(() => () => observerRef.current?.disconnect(), []);
 
 	// Only prepare once fonts are loaded — single pass with correct metrics
 	if (fontsReady) {
