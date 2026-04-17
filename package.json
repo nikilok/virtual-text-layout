@@ -1,0 +1,48 @@
+{
+	"name": "virtual-text-layout",
+	"version": "0.1.0",
+	"license": "MIT",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/nikilok/virtual-text-layout.git"
+	},
+	"homepage": "https://github.com/nikilok/virtual-text-layout#readme",
+	"bugs": "https://github.com/nikilok/virtual-text-layout/issues",
+	"scripts": {
+		"build": "tsup",
+		"lint": "biome check .",
+		"lint:fix": "biome check --fix ."
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		}
+	},
+	"files": [
+		"dist",
+		"LICENSE",
+		"README.md"
+	],
+	"keywords": [
+		"virtual-list",
+		"virtualization",
+		"text-layout",
+		"pretext",
+		"tanstack-virtual",
+		"react"
+	],
+	"dependencies": {
+		"@chenglou/pretext": "^0.0.5"
+	},
+	"peerDependencies": {
+		"react": ">=18"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.4.11",
+		"@types/react": "^19.2.14",
+		"tsup": "^8.5.1",
+		"typescript": "^6.0.3"
+	}
+}
