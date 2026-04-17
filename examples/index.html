@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>virtual-text-layout examples</title>
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+		/>
+		<style>
+			* {
+							box-sizing: border-box;
+						}
+						body {
+							margin: 0;
+							font-family: Inter, system-ui, sans-serif;
+							color: #111;
+						}
+						.nav {
+							position: sticky;
+							top: 0;
+							background: #fff;
+							padding: 12px 16px;
+							border-bottom: 1px solid #eee;
+							display: flex;
+							gap: 8px;
+							z-index: 10;
+						}
+						.nav button {
+							padding: 6px 12px;
+							border: 1px solid #ddd;
+							background: #fff;
+							cursor: pointer;
+							font: inherit;
+							border-radius: 6px;
+						}
+						.nav button[aria-pressed="true"] {
+							background: #111;
+							color: #fff;
+							border-color: #111;
+						}
+		</style>
+	</head>
+	<body>
+		<div id="root"></div>
+		<script type="module" src="/main.tsx"></script>
+	</body>
+</html>
