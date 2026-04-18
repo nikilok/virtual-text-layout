@@ -33,7 +33,7 @@ export function ScrollContainerList({ items }: { items: Row[] }) {
 	const virtualizer = useVirtualizer({
 		count: ready ? items.length : 0,
 		getScrollElement: () => scrollRef.current,
-		estimateSize: (index) => estimateSize(index),
+		estimateSize,
 		overscan: 5,
 	});
 

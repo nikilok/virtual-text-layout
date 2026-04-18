@@ -32,7 +32,7 @@ export function WindowScrollList({ items }: { items: Row[] }) {
 
 	const virtualizer = useWindowVirtualizer({
 		count: ready ? items.length : 0,
-		estimateSize: (index) => estimateSize(index),
+		estimateSize,
 		overscan: 5,
 	});
 

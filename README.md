@@ -1,10 +1,10 @@
 # virtual-text-layout
 
-Pre-compute virtual list item heights from text content using canvas — zero DOM measurement on the scroll path.
+An improved `estimateSize` function for [TanStack Virtual](https://tanstack.com/virtual), powered by [pretext](https://github.com/chenglou/pretext)'s canvas-based text measurement — zero DOM measurement on the scroll path.
 
 **[Live demo →](https://www.sponsorsearch.co.uk/?search=han)**
 
-Built on [@chenglou/pretext](https://github.com/chenglou/pretext). Pairs with [@tanstack/react-virtual](https://tanstack.com/virtual) or any virtualizer that accepts an `estimateSize` function.
+Works with any virtualizer that accepts an `estimateSize` function.
 
 Peer dependencies: `react >= 18`, `@chenglou/pretext`
 
@@ -29,7 +29,7 @@ const { estimateSize, ready } = useVirtualTextLayout(items, {
 
 const virtualizer = useWindowVirtualizer({
   count: ready ? items.length : 0,
-  estimateSize: (index) => estimateSize(index),
+  estimateSize,
 });
 ```
 
