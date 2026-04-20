@@ -92,6 +92,10 @@ Measured scrolling through 250 rows (5 pages):
 | Function call total | 1,383ms        | 968ms               | -30%   |
 | Paint               | 33ms           | 25ms                | -26%   |
 
+## Credits
+
+Thanks to [Amine Benaddi](https://www.linkedin.com/in/aminebenaddi/) for sparking this library with his [StackBlitz demo](https://stackblitz.com/edit/vitejs-vite-1ad19qmw?file=src%2FApp.tsx) showing canvas-based text measurement as a solution to virtualized-list scroll performance.
+
 ## License
 
 MIT
