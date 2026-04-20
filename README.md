@@ -37,28 +37,28 @@ const virtualizer = useWindowVirtualizer({
 
 ## Configuration
 
-| Option          | Type            | Description                                                                                                                                                                                                                                                                                    |
-| --------------- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `items`         | `T[]`           | The array of data you're rendering (search results, messages, rows, whatever). The hook is generic over the item type — `getText` receives one of these items and returns the string to measure. Growing the array is cheap (incremental prep for infinite scroll); shrinking resets metrics. |
-| `fields`        | `TextField<T>[]` | Text fields whose height varies with wrapping (see table below).                                                                                                                                                                                                                               |
-| `fixedHeight`   | `number`        | Total height in px of fixed-size card elements (padding, margins, icons, single-line text).                                                                                                                                                                                                    |
-| `containerRef`  | `RefObject`     | Ref to a DOM element with the same horizontal padding as the list container.                                                                                                                                                                                                                   |
+| Option         | Type             | Description                                                                                                                                                                                                                                                                                   |
+| -------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `items`        | `T[]`            | The array of data you're rendering (search results, messages, rows, whatever). The hook is generic over the item type — `getText` receives one of these items and returns the string to measure. Growing the array is cheap (incremental prep for infinite scroll); shrinking resets metrics. |
+| `fields`       | `TextField<T>[]` | Text fields whose height varies with wrapping (see table below).                                                                                                                                                                                                                              |
+| `fixedHeight`  | `number`         | Total height in px of fixed-size card elements (padding, margins, icons, single-line text).                                                                                                                                                                                                   |
+| `containerRef` | `RefObject`      | Ref to a DOM element with the same horizontal padding as the list container.                                                                                                                                                                                                                  |
 
 ### `TextField<T>`
 
-| Field        | Type                   | Description                                                                                |
-| ------------ | ---------------------- | ------------------------------------------------------------------------------------------ |
-| `getText`    | `(item: T) => string`  | Extracts the text string from an item, including any transforms applied before render.     |
-| `font`       | `string`               | Canvas font shorthand (e.g. `'600 16px Inter'`). Must match your rendered CSS.             |
-| `lineHeight` | `number`               | Line height in px. Must match your CSS `line-height`.                                      |
+| Field        | Type                  | Description                                                                            |
+| ------------ | --------------------- | -------------------------------------------------------------------------------------- |
+| `getText`    | `(item: T) => string` | Extracts the text string from an item, including any transforms applied before render. |
+| `font`       | `string`              | Canvas font shorthand (e.g. `'600 16px Inter'`). Must match your rendered CSS.         |
+| `lineHeight` | `number`              | Line height in px. Must match your CSS `line-height`.                                  |
 
 ## Returns
 
-| Field          | Type                         | Description                                                                                                                                                                                                                                                                   |
-| -------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `estimateSize` | `(index: number) => number`  | Returns the pre-computed height in px for the item at `index`. Pass directly to your virtualizer's `estimateSize` option. Before the container width is measured, falls back to a single-line estimate per field + `fixedHeight`.                                            |
-| `ready`        | `boolean`                    | `true` once fonts have loaded and the container width has been measured — i.e. `estimateSize` is now returning real measurements instead of fallbacks. Gate your virtualizer's `count` on this so it doesn't render with pre-measurement sizes.                              |
-| `contentWidth` | `number`                     | The current content-box width of the container in px, updated via `ResizeObserver`. Use it as a `useEffect` dependency to trigger `virtualizer.measure()` on resize — otherwise the virtualizer keeps its cached sizes and rows don't re-flow when the container width changes. |
+| Field          | Type                        | Description                                                                                                                                                                                                                                                                     |
+| -------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `estimateSize` | `(index: number) => number` | Returns the pre-computed height in px for the item at `index`. Pass directly to your virtualizer's `estimateSize` option. Before the container width is measured, falls back to a single-line estimate per field + `fixedHeight`.                                               |
+| `ready`        | `boolean`                   | `true` once fonts have loaded and the container width has been measured — i.e. `estimateSize` is now returning real measurements instead of fallbacks. Gate your virtualizer's `count` on this so it doesn't render with pre-measurement sizes.                                 |
+| `contentWidth` | `number`                    | The current content-box width of the container in px, updated via `ResizeObserver`. Use it as a `useEffect` dependency to trigger `virtualizer.measure()` on resize — otherwise the virtualizer keeps its cached sizes and rows don't re-flow when the container width changes. |
 
 ## Examples with TanStack Virtual
 
@@ -76,6 +76,7 @@ bun run dev
 ```
 
 Key details:
+
 - `scrollRef` is passed to both the virtualizer (`getScrollElement`) and the hook (`containerRef`) — the scroll container also defines the content width, so the measurement matches the render.
 - The CSS `font` / `lineHeight` on the rendered `<div>`s **must match** what's passed to `fields` — otherwise canvas measurement and DOM rendering disagree.
 - `count` is gated on `ready` so the virtualizer doesn't render with stale (pre-measurement) sizes.
@@ -94,7 +95,7 @@ Measured scrolling through 250 rows (5 pages):
 
 ## Credits
 
-Thanks to [Amine Benaddi](https://www.linkedin.com/in/aminebenaddi/) for sparking this library with his [StackBlitz demo](https://stackblitz.com/edit/vitejs-vite-1ad19qmw?file=src%2FApp.tsx) showing canvas-based text measurement as a solution to virtualized-list scroll performance.
+Thanks to [Amine Benaddi](https://www.linkedin.com/in/amine-benaddi/) for sparking this library with his [StackBlitz demo](https://stackblitz.com/edit/vitejs-vite-1ad19qmw?file=src%2FApp.tsx) showing canvas-based text measurement as a solution to virtualized-list scroll performance.
 
 ## License
 
