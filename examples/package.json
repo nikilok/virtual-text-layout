@@ -14,7 +14,7 @@
 		"@tanstack/react-virtual": "^3.10.0",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
-		"virtual-text-layout": "^0.1.2"
+		"virtual-text-layout": "0.1.8"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.11",
