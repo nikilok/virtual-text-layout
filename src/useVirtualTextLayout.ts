@@ -54,20 +54,21 @@ export function useVirtualTextLayout<T>(
 	// Final cleanup when the hook itself unmounts.
 	useEffect(() => () => observerRef.current?.disconnect(), []);
 
-	// Only prepare once fonts are loaded — single pass with correct metrics
+	// Only prepare once fonts are loaded — single pass with correct metrics.
+	// Mutates the ref array in place so pagination append is O(new batch),
+	// not O(total cached).
 	if (fontsReady) {
-		if (items.length < metricsRef.current.length) {
-			metricsRef.current = []; // data reset (e.g. new search)
+		const cache = metricsRef.current;
+		if (items.length < cache.length) {
+			cache.length = 0; // data reset (e.g. new search)
 		}
-		if (items.length > metricsRef.current.length) {
-			metricsRef.current = [
-				...metricsRef.current,
-				...items
-					.slice(metricsRef.current.length)
-					.map((item) =>
-						fields.map((field) => prepare(field.getText(item), field.font)),
-					),
-			];
+		for (let i = cache.length; i < items.length; i++) {
+			const item = items[i];
+			const handles: ReturnType<typeof prepare>[] = new Array(fields.length);
+			for (let j = 0; j < fields.length; j++) {
+				handles[j] = prepare(fields[j].getText(item), fields[j].font);
+			}
+			cache.push(handles);
 		}
 	}
 
