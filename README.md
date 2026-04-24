@@ -46,11 +46,12 @@ const virtualizer = useWindowVirtualizer({
 
 ### `TextField<T>`
 
-| Field        | Type                  | Description                                                                            |
-| ------------ | --------------------- | -------------------------------------------------------------------------------------- |
-| `getText`    | `(item: T) => string` | Extracts the text string from an item, including any transforms applied before render. |
-| `font`       | `string`              | Canvas font shorthand (e.g. `'600 16px Inter'`). Must match your rendered CSS.         |
-| `lineHeight` | `number`              | Line height in px. Must match your CSS `line-height`.                                  |
+| Field           | Type                  | Description                                                                                                                                                                     |
+| --------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `getText`       | `(item: T) => string` | Extracts the text string from an item, including any transforms applied before render.                                                                                          |
+| `font`          | `string`              | Canvas font shorthand (e.g. `'600 16px Inter'`). Must match your rendered CSS.                                                                                                  |
+| `lineHeight`    | `number`              | Line height in px. Must match your CSS `line-height`.                                                                                                                           |
+| `letterSpacing` | `number` _(optional)_ | Mirror your CSS `letter-spacing` as a px number (e.g. `-0.4` for `-0.4px`, `1.5` for `1.5px`). Accepts any real value. Omit when your CSS has no `letter-spacing`. |
 
 ## Returns
 

@@ -7,6 +7,8 @@ export type TextField<T> = {
 	font: string;
 	/** Line height in px. Must match the CSS line-height. */
 	lineHeight: number;
+	/** CSS `letter-spacing` in px. Must match the rendered CSS or measurement drifts per character boundary. */
+	letterSpacing?: number;
 };
 
 export type UseVirtualTextLayoutOptions<T> = {

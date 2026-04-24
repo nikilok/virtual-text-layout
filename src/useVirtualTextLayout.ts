@@ -66,7 +66,14 @@ export function useVirtualTextLayout<T>(
 			const item = items[i];
 			const handles: ReturnType<typeof prepare>[] = new Array(fields.length);
 			for (let j = 0; j < fields.length; j++) {
-				handles[j] = prepare(fields[j].getText(item), fields[j].font);
+				const field = fields[j];
+				handles[j] = prepare(
+					field.getText(item),
+					field.font,
+					field.letterSpacing === undefined
+						? undefined
+						: { letterSpacing: field.letterSpacing },
+				);
 			}
 			cache.push(handles);
 		}
